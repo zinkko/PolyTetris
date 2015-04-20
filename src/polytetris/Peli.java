@@ -40,7 +40,7 @@ public class Peli extends JPanel implements Runnable{
         this.delay = 50;
         this.random = new Random();
         
-        this.maxX = 20; this.maxY = 40;
+        this.maxX = 15; this.maxY = 40;
         
         this.seedX = maxX/2; this.seedY = 2;
     } 
@@ -80,8 +80,8 @@ public class Peli extends JPanel implements Runnable{
     public void addLine(){
         lines++;
         if (lines%4==0){
-            delay*=3;
-            delay/=2;
+            delay*=2;
+            delay/=3;
             if (delay<0) {
                 delay = 0;
             }
@@ -217,13 +217,12 @@ public class Peli extends JPanel implements Runnable{
         }
         
 
-        MAIN_LOOP:
         while (true){
             try{
                 
                 if(end){
                     end = false;
-                    break MAIN_LOOP; 
+                    break; 
                 }
                 
                Thread.sleep(10);
@@ -238,10 +237,9 @@ public class Peli extends JPanel implements Runnable{
                    currentPiece.move(Direction.UP);
                    
                    if (this.pohja == null){
-                       this.pohja = new Pohja(this,currentPiece.getParts());
+                       this.pohja = new Pohja(this, currentPiece.getParts());
                    }else{
                         this.pohja.addBlocks(currentPiece.getParts());
-                        
                         int x = this.currentPiece.getY();
                         this.pohja.checkRows(currentPiece.getLowY(),currentPiece.getHighY());
                    }
@@ -250,10 +248,10 @@ public class Peli extends JPanel implements Runnable{
                    increaseScore(5);
                    if (pohja != null && currentPiece.collide(pohja)){
                        System.out.println("Game Over");
-                       break MAIN_LOOP;
+                       break;
                    }
                }
-               
+               updateGhost();
                tick++;
                tick %= delay;
                

@@ -11,8 +11,10 @@ import java.awt.Color;
  * @author Ilari
  */
 public enum Type {
-    
-    //DOMINO,TROMINO_L,TROMINO_I,
+    MONOMINO(Color.PINK, new int[][][]{{{}}}),
+    DOMINO(Color.PINK, new int[][][]{{{0,1}},{{1,0}}}),
+    TROMINO_L(Color.PINK, new int[][][]{{{1,0},{0,1}},{{0,1},{-1,0}},{{-1,0},{0,-1}},{{0,-1},{1,0}}}),
+    TROMINO_I(Color.PINK, new int[][][]{{{0,1},{0,-1}},{{1,0},{-1,0}}}),
     //TETRA_I,TETRA_L,TETRA_T,TETRA_O,TETRA_S,
     PENTA_F(Color.CYAN,new int[][][]{{{-1,0},{0,1},{0,-1},{1,-1}},{{-1,0},{0,-1},{1,0},{1,1}},{{-1,1},{0,1},{0,-1},{1,0}},{{-1,-1},{-1,0},{1,0},{0,1}}}),
     PENTA_I(Color.RED,new int[][][]{{{-2,0},{-1,0},{1,0},{2,0}},{{0,-2},{0,-1},{0,1},{0,2}}}),
@@ -26,13 +28,16 @@ public enum Type {
     PENTA_X(Color.RED,new int[][][]{{{-1,0},{1,0},{0,-1},{0,1}}}),
     PENTA_Y(Color.ORANGE,new int[][][]{{{-1,0},{0,-1},{1,0},{2,0}},{{0,-1},{1,0},{0,1},{0,2}},{{-2,0},{-1,0},{0,1},{1,0}},{{-1,0},{0,1},{0,-1},{0,-2}}}),
     PENTA_Z(Color.CYAN,new int[][][]{{{-1,-1},{0,-1},{0,1},{1,1}},{{-1,0},{-1,1},{1,0},{1,-1}}});
-    
+
     private int[][][] stages;
     private Color color;
     
     private Type(Color c,int [][][] stages){
         this.color = c;
         this.stages = stages;
+        if (c == Color.ORANGE){
+            color = new Color(255,150,0);
+        }
     }
     
     public int[][][] getStages(boolean reverse){ 
@@ -44,6 +49,9 @@ public enum Type {
     
     private int[][][] mirror(){
         int[][][] palaute = stages;
+        if (this == MONOMINO) {
+            return stages;
+        }
         
         for (int i=0;i< stages.length;i++){
             for (int j=0;j<stages[i].length;j++){
