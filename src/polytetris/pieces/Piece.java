@@ -7,6 +7,7 @@ package polytetris.pieces;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
 import polytetris.Direction;
 import polytetris.Peli;
 
@@ -27,7 +28,17 @@ public class Piece {
     public Piece(ArrayList<Block> parts){
         this.parts = parts;
     }
-  
+    
+    public Piece clone(int x, int y){
+        Piece newPiece = new Piece(x, y, this.type, this.reverse);
+        ArrayList<Block> parts = new ArrayList<>();
+        for (Block b : this.parts){
+            parts.add(b.ghostBlock());
+        }
+        newPiece.parts = parts;
+        return newPiece;
+    }
+    
     public Piece(int seedX, int seedY,Type t,boolean reversed){
         this.seedX = seedX;
         this.seedY = seedY;
@@ -156,5 +167,9 @@ public class Piece {
             this.parts.get(i).setPosition(coords[0]+pivot.getX(), coords[1]+pivot.getY());
         }
 
+    }
+
+    public int getX() {
+        return this.pivot.getX();
     }
 }

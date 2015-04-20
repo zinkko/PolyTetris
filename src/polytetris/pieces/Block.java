@@ -54,4 +54,10 @@ public class Block {
         g.setColor(color);
         g.fillRect(x*(length+1), y*(length+1), length, length);
     }
+
+    Block ghostBlock() {
+        Block b = new Block(x,y, length,color);
+        b.color = b.color.darker().darker();
+        return b;
+    }
 }

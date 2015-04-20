@@ -35,7 +35,7 @@ public class Kuuntelija implements KeyListener{
                     peli.turn(false);
                 }
                 break;
-            case KeyEvent.VK_ENTER:
+            case KeyEvent.VK_SPACE:
                 this.drop();
                 break;
             case KeyEvent.VK_DOWN:

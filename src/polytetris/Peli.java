@@ -23,11 +23,10 @@ public class Peli extends JPanel implements Runnable{
     private int lines,score;
     private int delay;
     
-    private Piece currentPiece,pohja;
+    private Piece currentPiece, pohja, ghost;
     private Random random;
     
     private int seedX, seedY;
-    private Piece[] palat;
     
     private JLabel scoreLbl;
     private JLabel lineLbl;
@@ -54,6 +53,11 @@ public class Peli extends JPanel implements Runnable{
         if (currentPiece != null){
             currentPiece.piirra(g);
         }
+        
+        if (ghost != null) {
+            ghost.piirra(g);
+        }
+        
         if (pohja != null){
             pohja.piirra(g);
         }
@@ -92,7 +96,7 @@ public class Peli extends JPanel implements Runnable{
         }
         //System.out.println("score: "+lines);
         
-        increaseScore(0x64);
+        increaseScore(100);
     }
     
     public int getRequiredHeight(){
@@ -127,6 +131,7 @@ public class Peli extends JPanel implements Runnable{
     public void turn(boolean clockwise){
         try{
             this.currentPiece.turn(clockwise);
+            updateGhost();
         }catch (NullPointerException e){
             
         }
@@ -166,7 +171,8 @@ public class Peli extends JPanel implements Runnable{
             }else if (currentPiece.collide(pohja)){
                 this.currentPiece.move(d.reverse());
             }
-        }catch (NullPointerException e){
+            updateGhost();
+        } catch (NullPointerException e){
         }
     }
     
@@ -180,6 +186,23 @@ public class Peli extends JPanel implements Runnable{
     
     public void resetPala(){
         currentPiece = uusiPala();
+        updateGhost();
+    }
+    
+    
+    private void updateGhost(){
+        ghost = currentPiece.clone(currentPiece.getX(), seedY);
+        if (pohja == null) {
+            while (!ghost.isOffscreenY(maxY)) {
+                ghost.move(Direction.DOWN);
+            }
+            ghost.move(Direction.UP);
+            return;
+        }
+        while (!ghost.collide(pohja) && ! ghost.isOffscreenY(maxY)){
+            ghost.move(Direction.DOWN);
+        }
+        ghost.move(Direction.UP);
     }
     
     @Override
@@ -190,9 +213,10 @@ public class Peli extends JPanel implements Runnable{
         delay = 50;
         if (currentPiece == null){
             currentPiece = this.uusiPala();
+            updateGhost();
         }
         
-        
+
         MAIN_LOOP:
         while (true){
             try{
