@@ -50,13 +50,14 @@ public class Peli extends JPanel implements Runnable{
         g.setColor(Color.black);
         g.fillRect(0, 0, maxX*(Peli.BLOCK_SIZE+1), maxY*(Peli.BLOCK_SIZE+1));
         
+        if (ghost != null) {
+            ghost.piirra(g);
+        }
+
         if (currentPiece != null){
             currentPiece.piirra(g);
         }
         
-        if (ghost != null) {
-            ghost.piirra(g);
-        }
         
         if (pohja != null){
             pohja.piirra(g);
