@@ -46,10 +46,10 @@ public class App implements Runnable{
         frame.setPreferredSize(new Dimension(700,700));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
-        Thread t  =new Thread(peli); 
-        luoKomponentit(frame.getContentPane(),t);
+        Thread thread = new Thread(peli); 
+        luoKomponentit(frame.getContentPane(), thread);
         
-        t.start();
+        thread.start();
 
         frame.pack();
         frame.setVisible(true);
@@ -58,7 +58,7 @@ public class App implements Runnable{
         
     }
     
-    private void luoKomponentit(Container c,Thread t){
+    private void luoKomponentit(Container c, Thread thread){
         c.setLayout(new GridLayout(1,2));
         peli.addKeyListener(new Kuuntelija(peli));
         peli.setFocusable(true);
@@ -80,7 +80,7 @@ public class App implements Runnable{
         stuffPanel.add(lineLabel);
         stuffPanel.add(levelLabel);
         
-        peli.supplyLabels(scoreLabel,lineLabel,levelLabel);
+        peli.supplyLabels(scoreLabel, lineLabel, levelLabel);
         
         
         GridBagConstraints rajoite = new GridBagConstraints();
@@ -93,10 +93,10 @@ public class App implements Runnable{
         rajoite.gridy = 0;
         rajoite.ipady = peli.getRequiredHeight();
         rajoite.ipadx = peli.getRequiredWidth();
-        gamePanel.add(peli,rajoite);
+        gamePanel.add(peli, rajoite);
         
         JButton nappi = new JButton("New Game");
-        nappi.addActionListener(new NapinKuuntelija(peli,t));
+        nappi.addActionListener(new NapinKuuntelija(peli, thread));
         
         rajoite.fill = GridBagConstraints.REMAINDER;
         rajoite.gridx = 0;

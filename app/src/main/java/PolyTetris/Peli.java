@@ -86,7 +86,6 @@ public class Peli extends JPanel implements Runnable{
             if (delay<0) {
                 delay = 0;
             }
-            //System.out.println("delay: "+delay);
         }
         
         try{
@@ -95,7 +94,6 @@ public class Peli extends JPanel implements Runnable{
         }catch(NullPointerException e){
             
         }
-        //System.out.println("score: "+lines);
         
         increaseScore(100);
     }
@@ -257,7 +255,7 @@ public class Peli extends JPanel implements Runnable{
                tick %= delay;
                
             }catch (InterruptedException e){
-                
+                break;
             }
             
             this.repaint();
