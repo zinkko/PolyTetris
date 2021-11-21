@@ -11,7 +11,7 @@ import java.awt.Color;
  * @author Ilari
  */
 public enum Type {
-    MONOMINO(Color.GREEN, new int[][]{{}}),
+    MONOMINO(Color.GREEN, new int[][]{}),
     DOMINO(Color.GREEN, new int[][]{{0, 1}}),
     TROMINO_L(Color.YELLOW, new int[][]{{1, 0}, {0, 1}}),
     TROMINO_I(Color.YELLOW, new int[][]{{0, 1}, {0, -1}}),
@@ -50,7 +50,7 @@ public enum Type {
     
     private int[][] mirror() {
         int[][] reversed = this.positions;
-        for (int i=0; i< reversed.length; i++) {
+        for (int i=0; i < reversed.length; i++) {
             reversed[i][0] *= -1;
         }
         return reversed;

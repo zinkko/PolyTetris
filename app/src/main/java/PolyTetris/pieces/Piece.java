@@ -133,7 +133,7 @@ public class Piece {
     private void setBlocks(int[][] palat){
        pivot = new Block(seedX,seedY,Peli.BLOCK_SIZE,this.type.getColor());
        this.parts.add(pivot);
-       
+
        for (int[] coords : palat){
            this.parts.add(new Block(seedX+coords[0],seedY+coords[1],Peli.BLOCK_SIZE,this.type.getColor()));
        }

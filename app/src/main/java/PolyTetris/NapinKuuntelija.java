@@ -24,14 +24,12 @@ public class NapinKuuntelija implements ActionListener {
     
     @ Override
     public void actionPerformed(ActionEvent e){
-        if (oldThread.isAlive()){
-            //System.out.println("thread alive");
+        if (oldThread.isAlive()) {
             oldThread.interrupt();
             peli.resetScores();
             oldThread = new Thread(peli);
             oldThread.start();
-        }else{
-            //System.out.println("thread dead");
+        } else {
             peli.resetScores();
             oldThread = new Thread(peli);
             oldThread.start();

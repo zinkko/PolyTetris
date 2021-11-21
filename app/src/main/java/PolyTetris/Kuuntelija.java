@@ -23,7 +23,6 @@ public class Kuuntelija implements KeyListener{
     
     @Override
     public void keyPressed(KeyEvent e){
-        //System.out.println("key "+e.getKeyChar()+" pressed");
     }
     
     @Override
@@ -74,19 +73,16 @@ public class Kuuntelija implements KeyListener{
             if (pala.isOffscreenY(peli.getMaxY())){
                 pala.move(Direction.UP);
                 peli.resetPala();
-                if (peli.getPohja() == null){
+                if (peli.getPohja() == null) {
                     peli.setPohja(pala);
-                }else{
+                } else {
                     peli.getPohja().addBlocks(pala.getParts());
                     peli.getPohja().checkRows(pala.getLowY(),pala.getHighY());
                 }
-                
                 break;
             }
             
             peli.increaseScore(1);
         }
-        
-        
     }
 }

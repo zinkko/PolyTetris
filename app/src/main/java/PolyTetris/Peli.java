@@ -186,7 +186,7 @@ public class Peli extends JPanel implements Runnable{
     }
     
     public void resetPala(){
-        currentPiece = uusiPala();
+        this.currentPiece = uusiPala();
         updateGhost();
     }
     
@@ -228,7 +228,7 @@ public class Peli extends JPanel implements Runnable{
                 
                Thread.sleep(10);
                
-               if (tick ==0){
+               if (tick == 0){
                    currentPiece.move(Direction.DOWN);
                }
                
@@ -239,7 +239,7 @@ public class Peli extends JPanel implements Runnable{
                    
                    if (this.pohja == null){
                        this.pohja = new Pohja(this, currentPiece.getParts());
-                   }else{
+                   } else {
                         this.pohja.addBlocks(currentPiece.getParts());
                         int x = this.currentPiece.getY();
                         this.pohja.checkRows(currentPiece.getLowY(),currentPiece.getHighY());
@@ -265,10 +265,7 @@ public class Peli extends JPanel implements Runnable{
     }  
     
     private Piece uusiPala(){
-        
         Type type = Type.values()[this.random.nextInt(Type.values().length)];
-        
         return new Piece(seedX,seedY,type,Math.random()<0.5);
-
     }
 }
