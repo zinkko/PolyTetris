@@ -134,16 +134,16 @@ public class Piece {
        pivot = new Block(seedX,seedY,Peli.BLOCK_SIZE,this.type.getColor());
        this.parts.add(pivot);
        
-       if (this.type == Type.MONOMINO){
-           return; // only one
-       }
-       
        for (int[] coords : palat){
            this.parts.add(new Block(seedX+coords[0],seedY+coords[1],Peli.BLOCK_SIZE,this.type.getColor()));
        }
     }
     
     public void turn(boolean clockwise){
+        if (this.type == Type.TETRA_O) {
+            return;
+        }
+
         for (Block block : this.parts) {
             block.rotate(this.pivot.getX(), this.pivot.getY(), clockwise);
         }
