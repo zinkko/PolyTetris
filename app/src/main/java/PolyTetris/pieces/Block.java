@@ -49,6 +49,18 @@ public class Block {
         this.x= x;
         this.y =y;
     }
+
+    public void rotate(int pivotX, int pivotY, boolean clockwise) {
+        int x = this.x - pivotX;
+        int y = this.y - pivotY;
+        if (clockwise) {
+            this.x = -y + pivotX;
+            this.y = x + pivotY;
+        } else {
+            this.x = y + pivotX;
+            this.y = -x + pivotY;
+        }
+    }
     
     public void piirra(Graphics g){
         g.setColor(color);

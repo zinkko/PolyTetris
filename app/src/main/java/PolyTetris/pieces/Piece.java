@@ -16,8 +16,6 @@ import polytetris.Peli;
  * @author Ilari
  */
 public class Piece {
-    
-    private int[][][] stages;   
     private boolean reverse;
     private Block pivot;
     protected ArrayList<Block> parts;
@@ -39,13 +37,12 @@ public class Piece {
         return newPiece;
     }
     
-    public Piece(int seedX, int seedY,Type t,boolean reversed){
+    public Piece(int seedX, int seedY, Type t, boolean reversed){
         this.seedX = seedX;
         this.seedY = seedY;
         this.parts = new ArrayList<>();
         this.type = t;
-        this.stages = this.type.getStages(reversed);
-        this.setBlocks();
+        this.setBlocks(this.type.getPositions(reversed));
     }
     
     public void move(Direction d){        
@@ -133,11 +130,9 @@ public class Piece {
         return palaute;
     }
     
-    private void setBlocks(){
+    private void setBlocks(int[][] palat){
        pivot = new Block(seedX,seedY,Peli.BLOCK_SIZE,this.type.getColor());
        this.parts.add(pivot);
-       
-       int[][] palat = this.stages[stage];
        
        if (this.type == Type.MONOMINO){
            return; // only one
@@ -149,28 +144,9 @@ public class Piece {
     }
     
     public void turn(boolean clockwise){
-        if (clockwise){
-           stage++; 
-        }else{
-            stage--;
-            if (stage<0) {
-                stage = this.stages.length-1;
-            }
+        for (Block block : this.parts) {
+            block.rotate(this.pivot.getX(), this.pivot.getY(), clockwise);
         }
-        
-        
-        int[][][] xyz = this.type.getStages(this.reverse);
-        
-        stage%=xyz.length;
-        
-        int[][] places = xyz[stage];
-        int[] coords;
-        
-        for (int i=1;i<this.parts.size();i++){
-            coords = places[i-1];
-            this.parts.get(i).setPosition(coords[0]+pivot.getX(), coords[1]+pivot.getY());
-        }
-
     }
 
     public int getX() {
