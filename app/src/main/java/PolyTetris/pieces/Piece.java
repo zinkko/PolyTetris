@@ -143,6 +143,19 @@ public class Piece {
         if (this.type == Type.TETRA_O) {
             return;
         }
+        if (this.type == Type.TETRA_S) {
+            for (Block block : this.parts) {
+                int x = block.getX() - this.pivot.getX();
+                int y = block.getY() - this.pivot.getY();
+                if (x == 0 && y != 0) {
+                    block.setPosition(x + this.pivot.getX(), -y + this.pivot.getY());
+                }
+                if (x != 0 && y != 0) {
+                    block.setPosition(-x + this.pivot.getX(), y + this.pivot.getY());
+                }
+            }
+            return;
+        }
 
         for (Block block : this.parts) {
             block.rotate(this.pivot.getX(), this.pivot.getY(), clockwise);
